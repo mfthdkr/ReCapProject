@@ -11,8 +11,7 @@ using Entities.Concrete;
 
 //GetCarDetails();
 
-
-
+// GetAllColor();
 
 
 void GetCarsByBrandId()
@@ -43,6 +42,15 @@ void GetCarDetails()
     {
         Console.WriteLine(carDetailDto.Id + " " + carDetailDto.BrandName + " " + carDetailDto.ColorName + " " +
                           carDetailDto.DailyPrice);
+    }
+}
+
+void GetAllColor()
+{
+    ColorManager colorManager = new ColorManager(new EfColorDal());
+    foreach (var color in colorManager.GetAll())
+    {
+        Console.WriteLine(color.ColorId + " " + color.ColorName);
     }
 }
 
