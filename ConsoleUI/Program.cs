@@ -1,11 +1,12 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
 
 
-//GetCarsByBrandId();
+GetCarsByBrandId();
 
 // Add();
 
@@ -14,14 +15,18 @@ using Entities.Concrete;
 // GetAllColor();
 
 
+
 void GetCarsByBrandId()
 {
     CarManager carManager = new CarManager(new EfCarDal());
+    var result = carManager.GetCarsByBrandId(1);
 
-    foreach (var car in carManager.GetCarsByBrandId(1))
+    foreach (var car in result.Data)
     {
-        Console.WriteLine(car.ModelYear);
+        Console.WriteLine(car.Id + " " + car.DailyPrice);
     }
+
+    Console.WriteLine(Messages.CarsListed);
 }
 
 void Add()
@@ -38,7 +43,7 @@ void Add()
 void GetCarDetails()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    foreach (var carDetailDto in carManager.GetCarDetails())
+    foreach (var carDetailDto in carManager.GetCarDetails().Data)
     {
         Console.WriteLine(carDetailDto.Id + " " + carDetailDto.BrandName + " " + carDetailDto.ColorName + " " +
                           carDetailDto.DailyPrice);
@@ -48,7 +53,8 @@ void GetCarDetails()
 void GetAllColor()
 {
     ColorManager colorManager = new ColorManager(new EfColorDal());
-    foreach (var color in colorManager.GetAll())
+    var result = colorManager.GetAll();
+    foreach (var color in result.Data)
     {
         Console.WriteLine(color.ColorId + " " + color.ColorName);
     }
